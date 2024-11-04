@@ -42,13 +42,13 @@ INPUT_SCHEMA = {
         'example': [50]
     },
     "guidance_scale": {
-        'datatype': 'FP32',
+        'datatype': 'FP64',
         'required': False,
         'shape': [1],
         'example': [7.5]
     },
     "seed": {
-        'datatype': 'INT32',
+        'datatype': 'INT64',
         'required': True,
         'shape': [1],
         'example': [42]
