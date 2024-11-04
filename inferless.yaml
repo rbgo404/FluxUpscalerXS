@@ -30,7 +30,7 @@ configuration:
   vcpu: '20.0'
   ram: '200'
 env:
-  HUGGINFACE_TOKEN: <YOUR_HUGGINFACE_TOKEN>
+  HF_TOKEN: <YOUR_HUGGINFACE_TOKEN>
   
   # Add your environment variables here
 secrets:
@@ -41,6 +41,6 @@ optional:
   input_file_name: input.json
   output_file_name: output.json
   runtime_file_name: inferless-runtime-config.yaml
-model_url: https://github.com/rbgo404/FluxUpscalerXS.git
+model_url: https://github.com/inferless/FluxUpscalerXS.git
 provider: GITHUB
 io_schema: true
