@@ -70,8 +70,8 @@ class InferlessPythonModel:
         control_image = load_image(
         inputs["image_url"]
         )
-        upscale_factor = inputs["upscale_factor"]
-        max_dimension = inputs["max_dimension"]
+        upscale_factor = int(inputs["upscale_factor"])
+        max_dimension = int(inputs["max_dimension"])
         
         control_image, w_original, h_original, was_resized = self.process_input_image(
         control_image, upscale_factor, max_dimension
@@ -86,16 +86,16 @@ class InferlessPythonModel:
         print("control_image after resizing >>> ", control_image,flush=True)
         
         # Create a seed
-        seed = inputs["seed"]
+        seed = int(inputs["seed"])
         generator = torch.Generator().manual_seed(seed)
         
         output_image = self.model(
         prompt=inputs["prompt"], 
         prompt_2=inputs["negative_prompt"], 
         control_image=control_image,
-        controlnet_conditioning_scale=inputs["controlnet_conditioning_scale"],
-        num_inference_steps=inputs["num_inference_steps"], 
-        guidance_scale=inputs["guidance_scale"],
+        controlnet_conditioning_scale=float(inputs["controlnet_conditioning_scale"]),
+        num_inference_steps=int(inputs["num_inference_steps"]), 
+        guidance_scale=float(inputs["guidance_scale"]),
         height=control_image.size[1],
         width=control_image.size[0],
         generator=generator,
