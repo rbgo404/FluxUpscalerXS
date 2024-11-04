@@ -2,8 +2,6 @@ import torch
 from diffusers.utils import load_image
 from diffusers import FluxControlNetModel
 from diffusers import FluxControlNetPipeline
-from huggingface_hub import login
-import os
 from io import BytesIO
 import base64
 
@@ -45,16 +43,12 @@ class InferlessPythonModel:
         return input_image.resize((w, h)), w_original, h_original, was_resized
 
     def initialize(self):
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Set device
-        huggingface_token = os.getenv("HUGGINFACE_TOKEN")
-        os.environ["HF_TOKEN"] = huggingface_token
-        #LOGIN TO USE THE GATED FLUX DEV MODEL
-        
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Set device 
         base_model = 'black-forest-labs/FLUX.1-dev'
         controlnet_model = 'jasperai/Flux.1-dev-Controlnet-Upscaler'
           
-        controlnet = FluxControlNetModel.from_pretrained(controlnet_model, torch_dtype=torch.bfloat16, use_safetensors=True, token=huggingface_token)
-        pipe = FluxControlNetPipeline.from_pretrained(base_model, controlnet=controlnet, torch_dtype=torch.bfloat16, use_safetensors=True, token=huggingface_token)
+        controlnet = FluxControlNetModel.from_pretrained(controlnet_model, torch_dtype=torch.bfloat16, use_safetensors=True)
+        pipe = FluxControlNetPipeline.from_pretrained(base_model, controlnet=controlnet, torch_dtype=torch.bfloat16, use_safetensors=True)
         pipe.vae.enable_slicing()
         pipe.vae.enable_tiling()
         
