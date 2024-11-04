@@ -8,9 +8,6 @@ import os
 from io import BytesIO
 import base64
 
-# Set the environment variable to avoid memory fragmentation
-os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
-
 
 class InferlessPythonModel:
     @staticmethod
