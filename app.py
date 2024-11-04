@@ -47,14 +47,14 @@ class InferlessPythonModel:
     def initialize(self):
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Set device
         huggingface_token = os.getenv("HUGGINFACE_TOKEN")
+        os.environ["HF_TOKEN"] = huggingface_token
         #LOGIN TO USE THE GATED FLUX DEV MODEL
-        login(token=huggingface_token) 
         
         base_model = 'black-forest-labs/FLUX.1-dev'
         controlnet_model = 'jasperai/Flux.1-dev-Controlnet-Upscaler'
           
-        controlnet = FluxControlNetModel.from_pretrained(controlnet_model, torch_dtype=torch.bfloat16, use_safetensors=True)
-        pipe = FluxControlNetPipeline.from_pretrained(base_model, controlnet=controlnet, torch_dtype=torch.bfloat16, use_safetensors=True)
+        controlnet = FluxControlNetModel.from_pretrained(controlnet_model, torch_dtype=torch.bfloat16, use_safetensors=True, token=huggingface_token)
+        pipe = FluxControlNetPipeline.from_pretrained(base_model, controlnet=controlnet, torch_dtype=torch.bfloat16, use_safetensors=True, token=huggingface_token)
         pipe.vae.enable_slicing()
         pipe.vae.enable_tiling()
         
