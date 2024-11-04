@@ -48,7 +48,7 @@ class InferlessPythonModel:
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') # Set device
         huggingface_token = os.getenv("HUGGINFACE_TOKEN")
         #LOGIN TO USE THE GATED FLUX DEV MODEL
-        login(token=huggingface_token, add_to_git_credential=True) 
+        login(token=huggingface_token) 
         
         base_model = 'black-forest-labs/FLUX.1-dev'
         controlnet_model = 'jasperai/Flux.1-dev-Controlnet-Upscaler'
